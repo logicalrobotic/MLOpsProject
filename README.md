@@ -1,7 +1,7 @@
 # MLOpsProject
 Exam project for MLOps course DTU
 
-Template by: @amitmerchant1990 
+Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-markdownify#readme
 
 <h1 align="center">
   <br>
