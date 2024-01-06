@@ -5,15 +5,19 @@ from torch.utils.data import DataLoader, TensorDataset
 from models.model import LinearNeuralNetwork
 from data.dummy_data_loader import dummy_data
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+net = LinearNeuralNetwork().to(device)
+
 def predict(
     model: torch.nn.Module,
     dataloader: torch.utils.data.DataLoader
 ) -> None:
     total = 0
     correct = 0
+    model = torch.load(model)
     model.eval()
     with torch.no_grad():
-        for data in test_loader:
+        for data in dataloader:
             inputs, labels = data[0].to(device), data[1].to(device)
             outputs = net(inputs)
             predicted = (outputs > 0.5).float()
@@ -23,8 +27,5 @@ def predict(
     return 
 
 if __name__ == "__main__":
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     _,_,_,_,_, test_loader = dummy_data()
-    net = LinearNeuralNetwork().to(device)
-    #net.load_state_dict(torch.load('models/model.pt'))
-    predict(net, test_loader)
+    predict("models/trained_model.pt",test_loader)
