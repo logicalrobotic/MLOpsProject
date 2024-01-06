@@ -12,7 +12,7 @@ Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-ma
 ## Overall goal of the project
 Our overall goal is to predict whether you win or not. And if time possible you should save or spend earned money in a round to win a round and at last end win the whole game. In in-game language eco, buy, or force buy. The model is the experimental part of our project, but our focus is to use MLops strategies and methods to make this experimentation easier, and for us to better share work.
 
-## What framework are you going to useand you do you intend to include the framework into your project?
+## What framework are you going to use and you do you intend to include the framework into your project?
 We are going to use pytorch with a hugging face framework.
 
 ## What data are you going to run on (initially, may change)
