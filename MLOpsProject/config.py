@@ -3,19 +3,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-
-#@dataclass
-#class Paths:
-    #log: str
-    #data: str
-
-
-#@dataclass
-#class Files:
-   # train_data: str
-    #train_labels: str
-    #test_data: str
-    #test_labels: str
+@dataclass
+class Files:
+    model_save_path : str
 
 
 @dataclass
@@ -26,15 +16,15 @@ class Params:
 
 @dataclass
 class Optim:
-    optim : torch.optim.Optimizer
+    optim : str
 
 @dataclass
 class Loss:
-    loss : torch.nn.Module
+    loss : str
 
 
-#@dataclass
-#class MNISTConfig:
-    #paths: Paths
-    #files: Files
-    #params: Params
+@dataclass
+class CSGOConfig:
+    params: Params
+    optim: Optim
+    loss: Loss
