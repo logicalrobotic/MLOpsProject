@@ -13,6 +13,8 @@ Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-ma
 
 <h4 align="center">MLOps project for CS:GO Round Winner Classification using next sequence prediction <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification" target="_blank">Kaggle</a>.</h4>
 
+![Alt text](https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification)
+
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
