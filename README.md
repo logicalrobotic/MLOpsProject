@@ -5,13 +5,13 @@ Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-ma
 
 <h1 align="center">
   <br>
-  <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification"><img src="https://github.com/GorenzelgProjects/MLOpsProject/tree/main/Figures/CSGO_IMG.jpg" alt="Markdownify" width="600"></a>
+  <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification"><img src="https://github.com/GorenzelgProjects/MLOpsProject/tree/main/Figures/CSGO_IMG.jpg"</a>
   <br>
   Kaggle: CS:GO Round Winner Classification
   <br>
 </h1>
 
-<h4 align="center">MLOps project for CS:GO Round Winnder Classification using next sequence prediction <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification" target="_blank">Kaggle</a>.</h4>
+<h4 align="center">MLOps project for CS:GO Round Winner Classification using next sequence prediction <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification" target="_blank">Kaggle</a>.</h4>
 
 <p align="center">
   <a href="https://badge.fury.io/js/electron-markdownify">
