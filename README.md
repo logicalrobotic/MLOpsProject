@@ -26,4 +26,4 @@ The Kaggle dataset: CS:GO Round Winner Classification (link: https://www.kaggle.
 On day one, we want to create a simple linear neural network as a beginning to make a simple loop starting from data processing to train-/testloop. The output we expect one day:1 is the probability of winning a CSGO match given specific parameters. Throughout the rest of the project days, we want to look into an autoencoder with a transformer implementation in the sparse latent space. - We hope to not only be able to predict if a team is winning or losing but also give recommendations of what might help to win given specific circumstances. - This could for example be used for economic strategy in CSGO.
 
 ## Meme of the day
-!(https://github.com/GorenzelgProjects/MLOpsProject/edit/main/Figures/Meme_of_the_day.jpg)
+![alt text](https://github.com/GorenzelgProjects/MLOpsProject/edit/main/Figures/Meme_of_the_day.jpg)
