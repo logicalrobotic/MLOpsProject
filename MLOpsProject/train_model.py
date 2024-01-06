@@ -35,11 +35,11 @@ net = LinearNeuralNetwork().to(device)
 #Hydra decrator to read config file
 @hydra.main(config_path="conf", config_name="config")
 def train(cfg: CSGOConfig) -> None:
-    print(cfg.params)
+    #print(cfg.params)
     """Train a model."""
-    print(f"Training with learning rate {cfg.params.lr} and epochs {cfg.params.epochs}")
+    print(f"Training with learning rate {cfg.params.lr} and {cfg.params.epochs} epochs")
     model = net.to(device)
-    print(cfg.optimizer)
+    #print(cfg.optimizer)
 
     """This is getting removed in future versions:start"""
     #optimizer = cfg.optim.optimizer(model.parameters(), lr=cfg.params.lr)
@@ -61,8 +61,7 @@ def train(cfg: CSGOConfig) -> None:
     #optimizer = cfg.optimizer._target_(model.parameters(), lr=cfg.params.lr)
     #print(instantiate(cfg.optimizer, params=model.parameters()))
     optimizer = instantiate(cfg.optimizer, params=model.parameters())
-    
-
+  
     for epoch in range(cfg.params.epochs):
         running_loss = 0.0   
         for data in train_loader:
@@ -75,7 +74,8 @@ def train(cfg: CSGOConfig) -> None:
             running_loss += loss.item()
         print(f'Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}')
     print('Finished Training')
-    torch.save(model, cfg.files.model_save_path)
+    torch.save(model, f"trained_model.pt")
+    print("Model saved at: ", f"trained_model.pt")  
 
 if __name__ == "__main__":
     #_,_,_,_,train_loader, _ = dummy_data(batch_size=batch_size)
