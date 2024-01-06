@@ -1,8 +1,9 @@
 # MLOpsProject
 Exam project for MLOps course DTU
-
-Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-markdownify#readme
-
+###participants:
+Martin Christoffersen, s190464@student.dtu.dk
+Mikkel Grøngård, s214649@student.dtu.dk
+Rasmus Sørensen, s214622@student.dtu.dk
 <h1 align="center">
   <br>
   Kaggle: CS:GO Round Winner Classification
