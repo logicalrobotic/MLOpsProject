@@ -5,7 +5,7 @@ Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-ma
 
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
+  <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification"><img src="https://github.com/GorenzelgProjects/MLOpsProject/tree/main/Figures/CSGO_IMG.jpg" alt="Markdownify" width="200"></a>
   <br>
   Kaggle: CS:GO Round Winner Classification
   <br>
