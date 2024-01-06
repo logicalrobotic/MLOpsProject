@@ -1,5 +1,6 @@
 # MLOpsProject
 Exam project for MLOps course DTU
+
 ###participants:
 Martin Christoffersen, s190464@student.dtu.dk
 Mikkel Grøngård, s214649@student.dtu.dk
