@@ -5,27 +5,16 @@ Template by: @amitmerchant1990 | https://github.com/amitmerchant1990/electron-ma
 
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
+  <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification"><img src="https://github.com/GorenzelgProjects/MLOpsProject/tree/main/Figures/CSGO_IMG.jpg"</a>
   <br>
   Kaggle: CS:GO Round Winner Classification
   <br>
 </h1>
 
-<h4 align="center">MLOps project for CS:GO Round Winnder Classification using next sequence prediction <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification" target="_blank">Kaggle</a>.</h4>
+<h4 align="center">MLOps project for CS:GO Round Winner Classification using next sequence prediction <a href="https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification" target="_blank">Kaggle</a>.</h4>
 
-<p align="center">
-  <a href="https://badge.fury.io/js/electron-markdownify">
-    <img src="https://badge.fury.io/js/electron-markdownify.svg"
-         alt="Gitter">
-  </a>
-  <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://badges.gitter.im/amitmerchant1990/electron-markdownify.svg"></a>
-  <a href="https://saythanks.io/to/bullredeyes@gmail.com">
-      <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
-  </a>
-  <a href="https://www.paypal.me/AmitMerchant">
-    <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
-  </a>
-</p>
+![Alt text](https://www.kaggle.com/datasets/christianlillelund/csgo-round-winner-classification)
+
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
