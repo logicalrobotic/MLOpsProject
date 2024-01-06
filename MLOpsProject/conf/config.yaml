@@ -2,13 +2,14 @@ files:
   model_save_path : "trained_model.pt"
 
 params:
-  lr : 0.001
+  lr: 0.001
   batch_size : 10
   epochs : 5
 
-optim:
-  optimizer : "torch.optim.adam.Adam"
-
+optimizer:
+   _target_: torch.optim.Adam
+   lr: 0.001
+    
 loss:
     criterion : "torch.nn.modules.loss.BCELoss"
 

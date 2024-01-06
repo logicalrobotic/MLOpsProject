@@ -10,6 +10,8 @@ from config import CSGOConfig
 import hydra
 from hydra.core.config_store import ConfigStore
 
+from hydra.utils import instantiate
+
 cs = ConfigStore.instance()
 cs.store(name="csgo_config", node=CSGOConfig)
 
@@ -37,12 +39,12 @@ def train(cfg: CSGOConfig) -> None:
     """Train a model."""
     print(f"Training with learning rate {cfg.params.lr} and epochs {cfg.params.epochs}")
     model = net.to(device)
-    print(cfg.optim.optimizer)
+    print(cfg.optimizer)
 
     """This is getting removed in future versions:start"""
     #optimizer = cfg.optim.optimizer(model.parameters(), lr=cfg.params.lr)
     #criterion = cfg.loss.criterion()
-    optimizer = optim.Adam(model.parameters(), lr=cfg.params.lr)
+    #optimizer = optim.Adam(model.parameters(), lr=cfg.params.lr)
     criterion = nn.BCELoss()
     #return
     one_up = up(up(__file__))
@@ -56,7 +58,10 @@ def train(cfg: CSGOConfig) -> None:
     #_,_,_,_,train_loader, _ = dummy_data(batch_size=cfg.params.batch_size)
 
     """This is getting removed in future versions:end"""
-
+    #optimizer = cfg.optimizer._target_(model.parameters(), lr=cfg.params.lr)
+    #print(instantiate(cfg.optimizer, params=model.parameters()))
+    optimizer = instantiate(cfg.optimizer, params=model.parameters())
+    
 
     for epoch in range(cfg.params.epochs):
         running_loss = 0.0   
