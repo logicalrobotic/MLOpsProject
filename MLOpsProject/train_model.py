@@ -9,8 +9,9 @@ from os.path import dirname as up
 from config import CSGOConfig
 import hydra
 from hydra.core.config_store import ConfigStore
-
 from hydra.utils import instantiate
+import wandb
+import omegaconf
 
 cs = ConfigStore.instance()
 cs.store(name="csgo_config", node=CSGOConfig)
@@ -36,9 +37,16 @@ net = LinearNeuralNetwork().to(device)
 @hydra.main(config_path="conf", config_name="config")
 def train(cfg: CSGOConfig) -> None:
     #print(cfg.params)
+    wandb.config = omegaconf.OmegaConf.to_container(
+        cfg, resolve=True, throw_on_missing=True
+    )
+    wandb.config.update({"lr": cfg.params.lr, "epochs": cfg.params.epochs})
+
+    wandb.init(project="csgo")
     """Train a model."""
     print(f"Training with learning rate {cfg.params.lr} and {cfg.params.epochs} epochs")
     model = net.to(device)
+    wandb.watch(model,log_freq=1000)
     #print(cfg.optimizer)
 
     """This is getting removed in future versions:start"""
@@ -72,6 +80,7 @@ def train(cfg: CSGOConfig) -> None:
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
+            wandb.log({"loss": running_loss / len(train_loader)})
         print(f'Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}')
     print('Finished Training')
     torch.save(model, f"trained_model.pt")
