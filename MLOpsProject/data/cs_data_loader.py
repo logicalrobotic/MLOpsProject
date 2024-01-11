@@ -28,7 +28,9 @@ def cs_data(file_path: str, batch_size: int=64, split: list=[0.6, 0.2, 0.2], shu
     train_loader = DataLoader(train, batch_size=batch_size, shuffle=shuffle[0])
     val_loader = DataLoader(val, batch_size=batch_size, shuffle=shuffle[1])
     test_loader = DataLoader(test, batch_size=batch_size, shuffle=shuffle[2])
-
+    torch.save(train_loader, 'MLOpsProject/data/processed/train_loader.pth')
+    torch.save(val_loader, 'MLOpsProject/data/processed/val_loader.pth')
+    torch.save(test_loader, 'MLOpsProject/data/processed/test_loader.pth')
     return train_loader, val_loader, test_loader
 
 if __name__ == "__main__":
