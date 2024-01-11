@@ -5,6 +5,8 @@ params:
   lr: 1e-4
   batch_size : 10
   epochs : 20
+  debug_mode : False
+  log_mode : False
 
 optimizer:
    _target_: torch.optim.Adam

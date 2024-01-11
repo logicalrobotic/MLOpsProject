@@ -1,18 +1,16 @@
 from dataclasses import dataclass
-import torch
-import torch.nn as nn
-import torch.optim as optim
 
 @dataclass
 class Files:
     model_save_path : str
-
 
 @dataclass
 class Params:
     epoch_count: int
     lr: float
     batch_size: int
+    debug_mode: bool
+    log_mode: bool
 
 @dataclass
 class Optim:
@@ -21,7 +19,6 @@ class Optim:
 @dataclass
 class Loss:
     loss : str
-
 
 @dataclass
 class CSGOConfig:
