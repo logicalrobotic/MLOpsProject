@@ -13,6 +13,7 @@ from hydra.utils import instantiate
 import wandb
 import omegaconf
 
+#Creating a config store for hydra, using the CSGOConfig class
 cs = ConfigStore.instance()
 cs.store(name="csgo_config", node=CSGOConfig)
 
