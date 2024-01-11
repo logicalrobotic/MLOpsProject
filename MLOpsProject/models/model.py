@@ -11,7 +11,7 @@ class LinearNeuralNetwork(nn.Module):
         self.linear3 = nn.Linear(in_features=32, out_features=16)  # Third hidden layer
         self.linear4 = nn.Linear(in_features=16, out_features=8)  # Fourth hidden layer
         self.linear5 = nn.Linear(in_features=8, out_features=4)  # Fifth hidden layer
-        self.output = nn.Linear(in_features=4, out_features=1)#Should we two outputs dim    # Output layer
+        self.output = nn.Linear(in_features=4, out_features=2)#Should we two outputs dim    # Output layer
 
     def forward(self, x):
         # Forward pass through the layers
