@@ -2,36 +2,38 @@ import torch
 import torch.nn as nn
 
 # Define the neural network class
-class LinearNeuralNetwork(nn.Module):
+class NeuralNetwork(nn.Module):
     def __init__(self):
-        super(LinearNeuralNetwork, self).__init__()
-        # Define the layers
-        self.linear1 = nn.Linear(in_features=96, out_features=64)  # First hidden layer
-        self.linear2 = nn.Linear(in_features=64, out_features=32)  # Second hidden layer
-        self.linear3 = nn.Linear(in_features=32, out_features=16)  # Third hidden layer
-        self.linear4 = nn.Linear(in_features=16, out_features=8)  # Fourth hidden layer
-        self.linear5 = nn.Linear(in_features=8, out_features=4)  # Fifth hidden layer
-        self.output = nn.Linear(in_features=4, out_features=2)#Should we two outputs dim    # Output layer
+        super(NeuralNetwork, self).__init__()
+        self.fc1 = nn.Linear(104, 256)
+        self.relu1 = nn.ReLU()
+        self.fc2 = nn.Linear(256, 128)
+        self.relu2 = nn.ReLU()
+        self.fc3 = nn.Linear(128, 32)
+        self.relu3 = nn.ReLU()
+        self.fc4 = nn.Linear(32, 2)
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
-        # Forward pass through the layers
-        assert x.shape[1] == 96, "Input tensor should have shape (batch_size, 96)"
-        x = torch.relu(self.linear1(x))
-        x = torch.relu(self.linear2(x))
-        x = torch.relu(self.linear3(x))
-        x = torch.relu(self.linear4(x))
-        x = torch.relu(self.linear5(x))
-        x = self.output(x)
-        return torch.softmax(x, dim=1)
+        x = x.view(x.size(0), -1)  # Flatten the input tensor
+        x = self.fc1(x)
+        x = self.relu1(x)
+        x = self.fc2(x)
+        x = self.relu2(x)
+        x = self.fc3(x)
+        x = self.relu3(x)
+        x = self.fc4(x)
+        x = self.softmax(x)
+        return x
 
 if __name__ == "__main__":
     #Create an instance of the network
-    net = LinearNeuralNetwork()
+    net = NeuralNetwork()
 
     # Display the network structure
     print(net)
 
     #Dummy test of forward pass
-    input_data = torch.randn(1, 96)
+    input_data = torch.randn(1, 104)
     output = net.forward(input_data)
     print("Output shape: {}".format(output.shape))
