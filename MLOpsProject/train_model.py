@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from models.model import LinearNeuralNetwork
+from models.model import NeuralNetwork
 from os.path import dirname as up
 from config import CSGOConfig
 import hydra
@@ -10,7 +10,10 @@ import wandb
 import omegaconf
 import warnings
 import torch
+from sklearn.model_selection import train_test_split
 from os.path import dirname as up
+from data.clean_data import *
+from torchvision import datasets, transforms
 
 # Suppress all warnings due to Hydra warnings
 warnings.filterwarnings("ignore")
@@ -23,26 +26,36 @@ cs.store(name="csgo_config", node=CSGOConfig)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #Loading network
-net = LinearNeuralNetwork().to(device)
+net = NeuralNetwork()
 
 #File path to the data
 one_up = up(up(__file__))
 # replace '\\' with '/' for Windows
 one_up = one_up.replace('\\', '/')
 # Join the paths to the csv files:
-file_path = one_up + "./data/processed/train_loader.pth"
+train_path = one_up + "/data/processed/train_loader.pth"
+test_path = one_up + "/data/processed/test_loader.pth"
+val_path = one_up + "/data/processed/val_loader.pth"
 
-def data_loader(file_path: str) -> None:
-        print("Loading data from: ", file_path)
-        train_loader = torch.load(file_path)
-        return train_loader
+#Normalize data and return as tensor
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+
+def data_loader(train_path: str,
+                test_path: str,
+                val_path: str,
+                ) -> None:
+    print("Loading data from: ", train_path)
+    train_loader = torch.load(train_path)
+    test_loader = torch.load(test_path)
+    val_loader = torch.load(val_path)
+    return train_loader, test_loader, val_loader
 
 #Hydra decrator to read config file
 @hydra.main(config_path="conf", config_name="config")
 def train(cfg: CSGOConfig) -> None:
     """Main training routine.
 
-    Modes: debug, logging, normal
+    Modes: debug, logging, normal. Change mode in config file.
         -> debug: prints out the shapes of the input and output tensors
         -> logging: logs the loss and accuracy to wandb
         -> normal: no logging or debugging. Defaults to this mode if no mode is specified.
@@ -63,14 +76,15 @@ def train(cfg: CSGOConfig) -> None:
     if cfg.params.log_mode:
         wandb.init(project="csgo")
     
+    #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = net.to(device)
     
     if cfg.params.log_mode:
         wandb.watch(model,log_freq=1000)
    
     #Loading data
-    train_loader = data_loader(file_path=file_path)
-
+    train_loader,_,val_loader = data_loader(train_path=train_path, test_path=test_path, val_path=val_path)
+    
     #Instantiate optimizer from config file
     optimizer = instantiate(cfg.optimizer, params=model.parameters())
     
@@ -81,23 +95,38 @@ def train(cfg: CSGOConfig) -> None:
 
     print(f"Training with learning rate {cfg.params.lr} and {cfg.params.epochs} epochs")
     for epoch in range(cfg.params.epochs):
-        running_loss = 0.0   
-        for data in train_loader:
-            inputs, labels = data[0].to(device), data[1].to(device)
+        running_loss = 0.0
+        model.train()
+        for images, labels in train_loader:
+            images, labels = images.to(device), labels.long().to(device)
             optimizer.zero_grad()
-            outputs = model(inputs)
+            outputs = model(images)
             if cfg.params.debug_mode:
                 print("outputs: ",outputs,outputs.shape, outputs.dtype)
                 print("labels: ",labels.long(),labels.long().shape, labels.long().dtype)
                 #print("shapes: ",outputs.shape, labels.shape, labels.unsqueeze(1).shape)
                 #print("type: ",outputs.dtype,labels.dtype, labels.unsqueeze(1).dtype)
-            loss = criterion(outputs, labels.long())
+            loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
             if cfg.params.log_mode:
                 wandb.log({"loss": running_loss / len(train_loader)})
-        print(f'Epoch {epoch + 1}, Loss: {running_loss / len(train_loader)}')
+        model.eval()
+        correct = 0
+        total = 0
+        with torch.no_grad():
+            for images, labels in val_loader:
+                images, labels = images.to(device), labels.long().to(device)
+                outputs = model(images.float())  # Convert images to floats
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+
+        accuracy = correct / total
+        print(f'Epoch {epoch+1}/{cfg.params.epochs}, Validation Accuracy: {accuracy:.4f}')
+        if cfg.params.log_mode:
+            wandb.log({"accuracy": accuracy})
     print('Finished Training')
     torch.save(model, f"trained_model.pt")
     print("Model saved at: ", f"trained_model.pt")  
