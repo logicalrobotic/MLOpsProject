@@ -2,9 +2,9 @@ files:
   model_save_path : "trained_model.pt"
 
 params:
-  lr: 0.001
+  lr: 1e-4
   batch_size : 10
-  epochs : 5
+  epochs : 20
 
 optimizer:
    _target_: torch.optim.Adam
