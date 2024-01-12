@@ -3,6 +3,9 @@ from dataclasses import dataclass
 @dataclass
 class Files:
     model_save_path : str
+    train_path : str
+    test_path : str
+    val_path : str
 
 @dataclass
 class Params:

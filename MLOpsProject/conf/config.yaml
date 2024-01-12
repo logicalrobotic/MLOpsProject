@@ -1,5 +1,9 @@
 files:
   model_save_path : "trained_model.pt"
+  train_path : "/data/processed/train_loader.pth"
+  test_path : "/data/processed/test_loader.pth"
+  val_path : "/data/processed/val_loader.pth"
+
 
 params:
   lr: 1e-4

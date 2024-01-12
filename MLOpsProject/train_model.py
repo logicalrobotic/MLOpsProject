@@ -10,10 +10,9 @@ import wandb
 import omegaconf
 import warnings
 import torch
-from sklearn.model_selection import train_test_split
 from os.path import dirname as up
 from data.clean_data import *
-from torchvision import datasets, transforms
+from torchvision import transforms
 
 # Suppress all warnings due to Hydra warnings
 warnings.filterwarnings("ignore")
@@ -28,14 +27,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #Loading network
 net = NeuralNetwork()
 
-#File path to the data
-one_up = up(up(__file__))
-# replace '\\' with '/' for Windows
-one_up = one_up.replace('\\', '/')
-# Join the paths to the csv files:
-train_path = one_up + "/data/processed/train_loader.pth"
-test_path = one_up + "/data/processed/test_loader.pth"
-val_path = one_up + "/data/processed/val_loader.pth"
 
 #Normalize data and return as tensor
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
@@ -66,6 +57,19 @@ def train(cfg: CSGOConfig) -> None:
 
     """
 
+
+    #Going one directory up from the current directory
+    one_up = up(up(__file__))
+    # replace '\\' with '/' for Windows
+    one_up = one_up.replace('\\', '/')
+    # Join the paths to the csv files:
+    train_path = one_up + cfg.files.train_path
+    test_path = one_up + cfg.files.test_path
+    val_path = one_up + cfg.files.val_path
+    #Load the data:
+    train_loader,_,val_loader = data_loader(train_path=train_path, test_path=test_path, val_path=val_path)
+
+
     #Initiate model + wandb logging if log_mode is true
     if cfg.params.log_mode:
         wandb.config = omegaconf.OmegaConf.to_container(
@@ -81,9 +85,6 @@ def train(cfg: CSGOConfig) -> None:
     
     if cfg.params.log_mode:
         wandb.watch(model,log_freq=1000)
-   
-    #Loading data
-    train_loader,_,val_loader = data_loader(train_path=train_path, test_path=test_path, val_path=val_path)
     
     #Instantiate optimizer from config file
     optimizer = instantiate(cfg.optimizer, params=model.parameters())
@@ -126,7 +127,7 @@ def train(cfg: CSGOConfig) -> None:
         accuracy = correct / total
         print(f'Epoch {epoch+1}/{cfg.params.epochs}, Validation Accuracy: {accuracy:.4f}')
         if cfg.params.log_mode:
-            wandb.log({"accuracy": accuracy})
+            wandb.log({"validation accuracy": accuracy})
     print('Finished Training')
     torch.save(model, f"trained_model.pt")
     print("Model saved at: ", f"trained_model.pt")  
