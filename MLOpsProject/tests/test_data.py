@@ -1,4 +1,4 @@
-import unittest
+import pytest
 import pandas as pd
 import numpy as np
 import sys
@@ -6,18 +6,18 @@ from sklearn.preprocessing import power_transform
 sys.path.append('./data')
 from clean_data import remove_grenades, encode_targets, encode_inputs, yeo_johnson
 
-class TestDataCleaning(unittest.TestCase):
+class TestDataCleaning():
     def test_remove_grenades(self):
         df = pd.DataFrame({'col1': [1, 2, 3], 'col2': [4, 5, 6], 'grenade1': [7, 8, 9], 'grenade2': [10, 11, 12]})
         expected_df = pd.DataFrame({'col1': [1, 2, 3], 'col2': [4, 5, 6]})
         cleaned_df = remove_grenades(df)
-        self.assertTrue(expected_df.equals(cleaned_df))
+        assert expected_df.equals(cleaned_df), "DataFrames are not equal"
 
     def test_encoder_target(self):
         y = pd.Series(['a', 'b', 'c', 'a', 'b', 'c'])
         expected_y = np.array([0, 1, 2, 0, 1, 2])
         y_encoded = encode_targets(y)
-        self.assertTrue(np.array_equal(expected_y, y_encoded))
+        assert np.array_equal(expected_y, y_encoded), "Arrays are not equal"
 
     def test_encoder_inputs(self):
         df = pd.DataFrame({'Category': ['A', 'B', 'A', 'C', 'B'],
@@ -25,12 +25,12 @@ class TestDataCleaning(unittest.TestCase):
         object_cols = ['Category']
         df_encoded = encode_inputs(df, object_cols)
         # Check if the result is a DataFrame
-        self.assertIsInstance(df_encoded, pd.DataFrame, "Result is not a DataFrame")
-        # Check if the index is preserved
-        self.assertTrue(df.index.equals(df_encoded.index), "Index mismatch")
+        # Assertions
+        assert isinstance(df_encoded, pd.DataFrame), "Result is not a DataFrame"
+        assert df.index.equals(df_encoded.index), "Index mismatch"
         # Check if the column names are set correctly
         expected_column_names = ['Category_A', 'Category_B', 'Category_C']
-        self.assertListEqual(list(df_encoded.columns), expected_column_names, "Incorrect column names")
+        assert list(df_encoded.columns) == expected_column_names, "Incorrect column names"
 
     #def test_yeo_johnson(self):
         # Test case 1: Positive values
@@ -49,6 +49,6 @@ class TestDataCleaning(unittest.TestCase):
         #self.assertTrue(np.all(transformed_arr_3 == 0), "Yeo-Johnson transformation of zeros should result in zeros")
 
 if __name__ == '__main__':
-    unittest.main()
+    pytest.main()
     
 
