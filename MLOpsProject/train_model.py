@@ -73,7 +73,7 @@ def train(cfg: CSGOConfig) -> None:
         wandb.config = omegaconf.OmegaConf.to_container(
         cfg, resolve=True, throw_on_missing=True
         )
-        wandb.config.update({"lr": cfg.params.lr, "epochs": cfg.params.epochs})
+        wandb.config.update({"lr": cfg.optimizer.lr, "epochs": cfg.params.epochs})
 
     if cfg.params.log_mode:
         wandb.init(project="csgo")
@@ -92,7 +92,7 @@ def train(cfg: CSGOConfig) -> None:
 
     """Train loop of model with the given hyperparameters."""
 
-    print(f"Training with learning rate {cfg.params.lr} and {cfg.params.epochs} epochs")
+    print(f"Training with learning rate {cfg.optimizer.lr} and {cfg.params.epochs} epochs")
     for epoch in range(cfg.params.epochs):
         running_loss = 0.0
         correct = 0
@@ -136,7 +136,7 @@ def train(cfg: CSGOConfig) -> None:
 
         """Printing and logging of loss and accuracy."""
 
-        print(f'Epoch {epoch+1}/{cfg.params.epochs},Validation Accuracy: {accuracy_val:.4f},Validation Loss: {running_loss_val / len(val_loader):.4f}')
+        print(f'Epoch {epoch+1}/{cfg.params.epochs},Validation Accuracy: {accuracy_val:.4f}, Validation Loss: {running_loss_val / len(val_loader):.4f}')
         if cfg.params.log_mode:
             wandb.log({"train loss": running_loss / len(train_loader)})
             wandb.log({"train accuracy": accuracy})

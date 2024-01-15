@@ -6,7 +6,6 @@ files:
 
 
 params:
-  lr: 1e-4
   batch_size : 10
   epochs : 20
   debug_mode : False

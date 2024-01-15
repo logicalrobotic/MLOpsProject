@@ -10,7 +10,6 @@ class Files:
 @dataclass
 class Params:
     epoch_count: int
-    lr: float
     batch_size: int
     debug_mode: bool
     log_mode: bool
@@ -18,6 +17,7 @@ class Params:
 @dataclass
 class Optim:
     optim : str
+    lr: float
 
 @dataclass
 class Loss:

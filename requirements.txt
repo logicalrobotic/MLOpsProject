@@ -8,3 +8,5 @@ pytest
 torchvision
 uvicorn
 fastapi
+pydantic
+watchfiles
