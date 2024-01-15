@@ -105,7 +105,7 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
+99
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -116,7 +116,7 @@ end of the project.
 >
 > Answer:
 
---- question 2 fill here ---
+s190464, s214622, s214649
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -163,7 +163,8 @@ end of the project.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+We used the cookiecutter template given in the course. It was important for us to keep the structure of the template to force us to work in a more structured manner - We then removed the following folders at the end, due to the fact we did not implement these parts in the project [...].
+The main part of the folder are [...].
 
 ### Question 6
 
@@ -174,7 +175,9 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+Add that we used pep8 and linting [...].
+
+Throughout this project work and other projects, we've noticed the importance of using git to share code that makes for small parts in a greater whole in the project. This means that no one person has the full picture of over details in the code without reading and understanding other's code. Rules like pep8 and just good coding practices in general enhance readability, thereby hastening and improving the quality overall in the project.
 
 ## Version control
 
@@ -193,7 +196,7 @@ end of the project.
 >
 > Answer:
 
---- question 7 fill here ---
+The main idea was to make tests for train, model architecture and data, as these parts was changed the most throughout the project, making it important to test often. We made a total of [...] that tested [...]. We then used the "Coverage" library to check over coverage and reiterated our testing, both in general but also as our project grew in size.
 
 ### Question 8
 
@@ -208,7 +211,9 @@ end of the project.
 >
 > Answer:
 
---- question 8 fill here ---
+Our code coverage is [...] ....
+
+We think that unit-testing and thereby test-coverage in important to check for problems that might arise when growing/changing the project. But as most ML, especially DL is largely dynamic, the errors can also be very abstract. It's easy to make tests for tensor-sizes and data cleaning functions, as the answer to these tests are obvious. The real issue arises when ones loss is acting out or the accuracy suddenly is much lower after a change that even went through the tests. In this project we even had issues with data and models even at a simple FFNN - The solution was much more abstract than a simple unittest is able to handle. Therefore in ML we cannot trust test to makes us error-free, but it helps in certain areas.
 
 ### Question 9
 
@@ -223,7 +228,9 @@ end of the project.
 >
 > Answer:
 
---- question 9 fill here ---
+We first started our workflow on the "main" branch. We quickly figured out why branching was necessary, even in small to medium projects like this. The main issue we had only using the main branch was that we all worked on this code at the same time, making the push/pull experience bad, as we had to continuously fix the merging issues.
+We started adding more branches for certain situations - One for clean implementation and one for more experimental testing. For our project, this was more than fine in a 3-person group, but in bigger projects giving a branch to every person is probably the way to go.
+The pull request feature was quite brilliant, as we suddenly saw zero merging issues on our main branch, meaning that the code on the main branch was always working for the actual ML testing.
 
 ### Question 10
 
@@ -238,7 +245,7 @@ end of the project.
 >
 > Answer:
 
---- question 10 fill here ---
+Initially we didn't use it due to [...], but [...].
 
 ### Question 11
 
@@ -288,7 +295,9 @@ end of the project.
 >
 > Answer:
 
---- question 13 fill here ---
+For experimental reproducibility, we used both Hydra and Wandb to store important information from our experiments. Hydra took care of the config files and saved a local file every time we experimented with hyperparameters, data information, loss, and the trained model. This was enough to let us reproduce the experiments if needed. However, we lacked the online functionality of Wandb, so everyone on the team could follow training in real-time as it was being made. Wandb also added the ability to share loss, accuracy etc.-plots on the go, making the inference analysis much easier as a team. The mixture of these two tools went a long way in making reproducibility easier and safer and we were in general very happy about working with increased reproducibility. 
+
+We added different workflows in the code, such that we in a code/ML-debugging scenario could stop and start the tracking if need-be.
 
 ### Question 14
 
