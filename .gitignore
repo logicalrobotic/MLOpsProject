@@ -184,3 +184,4 @@ cython_debug/
 
 outputs/
 *.pth
+MLOpsProject/conf/config.yaml
