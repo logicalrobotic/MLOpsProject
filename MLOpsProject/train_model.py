@@ -105,8 +105,6 @@ def train(cfg: CSGOConfig) -> None:
             if cfg.params.debug_mode:
                 print("outputs: ",outputs,outputs.shape, outputs.dtype)
                 print("labels: ",labels.long(),labels.long().shape, labels.long().dtype)
-                #print("shapes: ",outputs.shape, labels.shape, labels.unsqueeze(1).shape)
-                #print("type: ",outputs.dtype,labels.dtype, labels.unsqueeze(1).dtype)
             loss = criterion(outputs, labels)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
@@ -118,6 +116,9 @@ def train(cfg: CSGOConfig) -> None:
         if cfg.params.log_mode:
             wandb.log({"train loss": running_loss / len(train_loader)})
             wandb.log({"train accuracy": accuracy})
+        
+        """Validation loop of model."""
+
         model.eval()
         correct_val = 0
         total_val = 0
@@ -132,9 +133,10 @@ def train(cfg: CSGOConfig) -> None:
                 correct_val += (predicted_val == labels_val).sum().item()
                 running_loss_val += loss_val.item()
         accuracy_val = correct_val / total_val
-        print(f'Epoch {epoch+1}/{cfg.params.epochs}, 
-              Validation Accuracy: {accuracy_val:.4f},
-              Validation Loss: {running_loss_val / len(val_loader):.4f}')
+
+        """Printing and logging of loss and accuracy."""
+
+        print(f'Epoch {epoch+1}/{cfg.params.epochs},Validation Accuracy: {accuracy_val:.4f},Validation Loss: {running_loss_val / len(val_loader):.4f}')
         if cfg.params.log_mode:
             wandb.log({"train loss": running_loss / len(train_loader)})
             wandb.log({"train accuracy": accuracy})
