@@ -344,7 +344,8 @@ We added different workflows in the code, such that we in a code/ML-debugging sc
 >
 > Answer:
 
---- question 16 fill here ---
+In our project, we used Visual Studio Codes debugger, which helped a lot in getting our project to work. We found this technique to be very improving for the time used on debugging plus efficient code checking (run sub-parts of the code).
+Already in the early project days, we tried using profiling which gave little result, because of errors in code...
 
 ## Working in the cloud
 
