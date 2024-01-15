@@ -27,7 +27,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #Loading network
 net = NeuralNetwork()
 
-
 #Normalize data and return as tensor
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 
@@ -56,7 +55,6 @@ def train(cfg: CSGOConfig) -> None:
     Returns: None
 
     """
-
 
     #Going one directory up from the current directory
     one_up = up(up(__file__))
@@ -97,6 +95,8 @@ def train(cfg: CSGOConfig) -> None:
     print(f"Training with learning rate {cfg.params.lr} and {cfg.params.epochs} epochs")
     for epoch in range(cfg.params.epochs):
         running_loss = 0.0
+        correct = 0
+        total = 0
         model.train()
         for images, labels in train_loader:
             images, labels = images.to(device), labels.long().to(device)
@@ -108,26 +108,38 @@ def train(cfg: CSGOConfig) -> None:
                 #print("shapes: ",outputs.shape, labels.shape, labels.unsqueeze(1).shape)
                 #print("type: ",outputs.dtype,labels.dtype, labels.unsqueeze(1).dtype)
             loss = criterion(outputs, labels)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
-            if cfg.params.log_mode:
-                wandb.log({"loss": running_loss / len(train_loader)})
-        model.eval()
-        correct = 0
-        total = 0
-        with torch.no_grad():
-            for images, labels in val_loader:
-                images, labels = images.to(device), labels.long().to(device)
-                outputs = model(images.float())  # Convert images to floats
-                _, predicted = torch.max(outputs.data, 1)
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-
-        accuracy = correct / total
-        print(f'Epoch {epoch+1}/{cfg.params.epochs}, Validation Accuracy: {accuracy:.4f}')
+            accuracy = correct / total
         if cfg.params.log_mode:
-            wandb.log({"validation accuracy": accuracy})
+            wandb.log({"train loss": running_loss / len(train_loader)})
+            wandb.log({"train accuracy": accuracy})
+        model.eval()
+        correct_val = 0
+        total_val = 0
+        running_loss_val = 0.0
+        with torch.no_grad():
+            for images_val, labels_val in val_loader:
+                images_val, labels_val = images_val.to(device), labels_val.long().to(device)
+                outputs_val = model(images_val.float())  # Convert images to floats
+                loss_val = criterion(outputs_val, labels_val)
+                _, predicted_val = torch.max(outputs_val.data, 1)
+                total_val += labels_val.size(0)
+                correct_val += (predicted_val == labels_val).sum().item()
+                running_loss_val += loss_val.item()
+        accuracy_val = correct_val / total_val
+        print(f'Epoch {epoch+1}/{cfg.params.epochs}, 
+              Validation Accuracy: {accuracy_val:.4f},
+              Validation Loss: {running_loss_val / len(val_loader):.4f}')
+        if cfg.params.log_mode:
+            wandb.log({"train loss": running_loss / len(train_loader)})
+            wandb.log({"train accuracy": accuracy})
+            wandb.log({"validation accuracy": accuracy_val})
+            wandb.log({"validation loss": running_loss_val / len(val_loader)})
     print('Finished Training')
     torch.save(model, f"trained_model.pt")
     print("Model saved at: ", f"trained_model.pt")  
