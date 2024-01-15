@@ -1,6 +1,6 @@
 import json
 from dataclasses import dataclass, field
-
+import random
 from fastapi import FastAPI, HTTPException, Response
 
 app = FastAPI()
@@ -32,4 +32,10 @@ def read_root() -> Response:
 def read_item(channel_id: str) -> Channel:
     if channel_id not in channels:
         raise HTTPException(status_code=404, detail="Channel not found")
-    return channels[channel_id]
+    else:
+        rand_val = random.randint(0, 2)
+        if rand_val == 0:
+            win_id = "ct_win"
+        else:
+            win_id = "t_win"
+    return channels[win_id]
