@@ -155,7 +155,8 @@ We have made a requirements.txt file in which we have stated all the libraries a
 The way the member can do this is by:
 1. $cd [path]
 2. pip install -r requirements.txt
-*Afterwards you should be good to go.*
+   
+Afterwards you should be good to go.
 
 ### Question 5
 
