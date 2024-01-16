@@ -10,3 +10,7 @@ uvicorn
 fastapi
 pydantic
 watchfiles
+dvc
+Flask
+requests
+jsonify
