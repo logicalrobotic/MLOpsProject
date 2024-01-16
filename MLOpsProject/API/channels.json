@@ -1,20 +1,20 @@
 [
     {
-        "id": "codestackr",
-        "name": "codeSTACKr",
+        "id": "winner",
+        "name": "WHO WILL WIN",
         "tags": ["web development", "typescript"],
-        "description": "My tutorials are generally about web development and include coding languages such as HTML, CSS, Sass, JavaScript, and TypeScript."
+        "description": "Finding out who will win the round"
     },
     {
-        "id": "jackherrington",
-        "name": "Jack Herrington",
+        "id": "ct_win",
+        "name": "CS WIN",
+        "tags": ["web development", "typescript"],
+        "description": "Counter terrorist will probably win the round"
+    },
+    {
+        "id": "t_win",
+        "name": "T WIN",
         "tags": ["frontend", "technology"],
-        "description": "Frontend videos from basic to very advanced; tutorials, technology deep dives. You'll love it!"
-    },
-    {
-        "id": "arjancodes",
-        "name": "ArjanCodes",
-        "tags": ["software design", "python"],
-        "description": "ArjanCodes focuses on helping you become a better software developer."
+        "description": "Terrorist will probably win the round"
     }
 ]
