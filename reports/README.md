@@ -154,7 +154,7 @@ Der skal skrives noget her
 We have made a requirements.txt file in which we have stated all the libraries and packages. This file is used for a new member of the time to set up the right environment.
 The way the member can do this is by:
 1. $cd [path]
-2. pip install -r requirements.txt
+2. $pip install -r requirements.txt
    
 Afterwards you should be good to go.
 
@@ -269,7 +269,11 @@ Initially we didn't use it due to [...], but [...].
 >
 > Answer:
 
---- question 11 fill here ---
+
+Unittesting: In our project, we use pytest as unittester. The way we do this is by creating a new folder in which
+three files: test_data.py, test_model.py, test_model_structure.py are placed. These files contain functions that test  different aspects of our project
+like do we remove all grenades from the dataset. The first one tests all the data-related code and the test_model.py test if the model is properly running.
+test_model_structure.py test the structure of our code.
 
 ## Running code and tracking experiments
 
