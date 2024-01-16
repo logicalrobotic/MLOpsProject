@@ -147,8 +147,15 @@ s190464, s214622, s214649
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Der skal skrives noget her
+!!!!!!!!!!!!!!!!!!!!!!!!!!
 
---- question 4 fill here ---
+We have made a requirements.txt file in which we have stated all the libraries and packages. This file is used for a new member of the time to set up the right environment.
+The way the member can do this is by:
+1. $cd [path]
+2. pip install -r requirements.txt
+Afterwards you should be good to go.
 
 ### Question 5
 
