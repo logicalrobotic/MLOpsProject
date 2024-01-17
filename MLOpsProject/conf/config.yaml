@@ -6,8 +6,8 @@ files:
 
 
 params:
-  batch_size : 10
-  epochs : 5
+  batch_size : 32
+  epochs : 20
   debug_mode : False
   log_mode : False
 
