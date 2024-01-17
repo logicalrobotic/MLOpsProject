@@ -3,10 +3,10 @@ from torch.utils.data import DataLoader, TensorDataset
 
 def dummy_data(batch_size: int = 10) -> None:
 # Dummy dataset (for demonstration purposes)
-    X_train = torch.randn(100, 96)  # 100 samples, 96 features each
+    X_train = torch.randn(100, 104)  # 100 samples, 96 features each
     y_train = torch.randint(0, 2, (100, 1)).type(torch.FloatTensor)  # 100 binary labels
 
-    X_test = torch.randn(50, 96)  # 50 samples, 96 features each
+    X_test = torch.randn(50, 104)  # 50 samples, 96 features each
     y_test = torch.randint(0, 2, (50, 1)).type(torch.FloatTensor)  # 50 binary labels
 
     # Create data loaders
