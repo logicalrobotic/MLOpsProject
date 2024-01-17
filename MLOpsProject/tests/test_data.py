@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import sys
 from sklearn.preprocessing import power_transform
-sys.path.append('./data')
+sys.path.append('./MLOpsProject/data')
 from clean_data import remove_grenades, encode_targets, encode_inputs, yeo_johnson
 
 class TestDataCleaning():
