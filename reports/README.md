@@ -496,7 +496,10 @@ Already in the early project days, we tried using profiling which gave little re
 >
 > Answer:
 
---- question 26 fill here ---
+Throughout the process, we had different challenges. Firstly, we had the program itself running in the template, which took some time to get running probably with Hydra.
+Secondly, we had the Google Cloud issue which took a huge amount of time working. To solve the first problem we had to look through several videos on YouTube and experiment with code
+before it worked. For the second problem, we searched through the internet/YouTube to solve it, and it seemed to be a huge struggle in the beginning. The first couple of steps was fine in which we mean creating
+a project and activating API and bucket. But from there it was time-consuming.
 
 ### Question 27
 
