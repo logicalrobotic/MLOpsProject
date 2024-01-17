@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from models.model import NeuralNetwork
-from os.path import dirname as up
 from config import CSGOConfig
 import hydra
 from hydra.core.config_store import ConfigStore
@@ -9,10 +8,7 @@ from hydra.utils import instantiate
 import wandb
 import omegaconf
 import warnings
-import torch
-from os.path import dirname as up
 from data.clean_data import *
-from torchvision import transforms
 
 # Suppress all warnings due to Hydra warnings
 warnings.filterwarnings("ignore")
@@ -27,14 +23,11 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #Loading network
 net = NeuralNetwork()
 
-#Normalize data and return as tensor
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
-
 def data_loader(train_path: str,
                 test_path: str,
                 val_path: str,
-                ) -> None:
-    print("Loading data from: ", train_path)
+                ):
+    print("Loading data from: ", train_path)  
     train_loader = torch.load(train_path)
     test_loader = torch.load(test_path)
     val_loader = torch.load(val_path)
@@ -55,15 +48,15 @@ def train(cfg: CSGOConfig) -> None:
     Returns: None
 
     """
-
-    #Going one directory up from the current directory
-    one_up = up(up(__file__))
-    # replace '\\' with '/' for Windows
-    one_up = one_up.replace('\\', '/')
+    
     # Join the paths to the csv files:
-    train_path = one_up + cfg.files.train_path
-    test_path = one_up + cfg.files.test_path
-    val_path = one_up + cfg.files.val_path
+    #train_path = r"data/processed/train_loader.pth"
+    #train_path = "MLOpsProject/data/processed/test_loader.pth"
+    #train_loader = torch.load(train_path)
+    print(type(cfg.files.train_path))
+    train_path = cfg.files.train_path
+    test_path = cfg.files.test_path
+    val_path = cfg.files.val_path
     #Load the data:
     train_loader,_,val_loader = data_loader(train_path=train_path, test_path=test_path, val_path=val_path)
 
