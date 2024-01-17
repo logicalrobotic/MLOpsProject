@@ -1,7 +1,5 @@
 import pandas as pd
-from os.path import dirname as up
 import numpy as np
-import os
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import power_transform
@@ -9,6 +7,8 @@ from sklearn.preprocessing import OneHotEncoder, power_transform
 from sklearn.model_selection import train_test_split
 import torch
 from torch.utils.data import DataLoader, Dataset
+
+
 class CustomDataset(Dataset):
     def __init__(self, X, y):
         self.X = X
@@ -50,16 +50,11 @@ def yeo_johnson(series):
     return power_transform(arr, method='yeo-johnson')
 
 if __name__ == "__main__":
-    # Load the data
-
-    # Get the data and process it
-    two_up = up(up(up(__file__)))
-    # replace '\\' with '/' for Windows
-    two_up = two_up.replace('\\', '/')
+  
 
     # Join the paths to the csv files:
-    filename = two_up + "/data/raw/csgo_round_snapshots.csv"
-    output_filename = two_up + "/data/processed/csgo_converted.csv"
+    filename = "MLOpsProject/data/raw/csgo_round_snapshots.csv"
+    output_filename = "MLOpsProject/data/processed/csgo_converted.csv"
 
     print("Reading csv file from: ", filename)
 
@@ -123,9 +118,9 @@ if __name__ == "__main__":
     test_dataloader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
     # Save the dataloaders
-    torch.save(train_dataloader, two_up + "/data/processed/train_loader.pth")
-    torch.save(valid_dataloader, two_up + "/data/processed/val_loader.pth")
-    torch.save(test_dataloader, two_up + "/data/processed/test_loader.pth")
+    torch.save(train_dataloader, "MLOpsProject/data/processed/train_loader.pth")
+    torch.save(valid_dataloader, "MLOpsProject/data/processed/val_loader.pth")
+    torch.save(test_dataloader, "MLOpsProject/data/processed/test_loader.pth")
 
     # Print the number of samples in each dataset
     print(f"Number of samples in train dataset: {len(train_dataset)}")
