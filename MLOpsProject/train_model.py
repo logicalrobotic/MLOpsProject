@@ -9,6 +9,8 @@ import wandb
 import omegaconf
 import warnings
 from data.clean_data import *
+import os
+from hydra.utils import get_original_cwd
 
 # Suppress all warnings due to Hydra warnings
 warnings.filterwarnings("ignore")
@@ -49,14 +51,9 @@ def train(cfg: CSGOConfig) -> None:
 
     """
     
-    # Join the paths to the csv files:
-    #train_path = r"data/processed/train_loader.pth"
-    #train_path = "MLOpsProject/data/processed/test_loader.pth"
-    #train_loader = torch.load(train_path)
-    print(type(cfg.files.train_path))
-    train_path = cfg.files.train_path
-    test_path = cfg.files.test_path
-    val_path = cfg.files.val_path
+    train_path = os.path.join(get_original_cwd(), cfg.files.train_path)
+    test_path = os.path.join(get_original_cwd(), cfg.files.test_path)
+    val_path = os.path.join(get_original_cwd(), cfg.files.val_path)
     #Load the data:
     train_loader,_,val_loader = data_loader(train_path=train_path, test_path=test_path, val_path=val_path)
 
