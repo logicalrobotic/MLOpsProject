@@ -126,7 +126,7 @@ def train(cfg: CSGOConfig) -> None:
 
         """Printing and logging of loss and accuracy."""
 
-        print(f'Epoch {epoch+1}/{cfg.params.epochs},Validation Accuracy: {accuracy_val:.4f}, Validation Loss: {running_loss_val / len(val_loader):.4f}')
+        print(f'Epoch {epoch+1}/{cfg.params.epochs},Train Accuracy: {accuracy:.4f} Validation Accuracy: {accuracy_val:.4f}, Validation Loss: {running_loss_val / len(val_loader):.4f}')
         if cfg.params.log_mode:
             wandb.log({"train loss": running_loss / len(train_loader)})
             wandb.log({"train accuracy": accuracy})
