@@ -148,6 +148,13 @@ We used "Optuna" as our third-party framework in this project. As we've in the p
 >
 > Answer:
 
+As a prerequisite, we recommend setting up a virtual environment for this project using Anaconda.
+
+'''
+$ conda create --name [your_environment_name] python=3.9
+$ conda activate [your_environment_name] 
+'''
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!
 Der skal skrives noget her
 !!!!!!!!!!!!!!!!!!!!!!!!!!
