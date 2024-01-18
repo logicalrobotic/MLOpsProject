@@ -152,6 +152,12 @@ We used "Optuna" as our third-party framework in this project. As we've in the p
 Der skal skrives noget her
 !!!!!!!!!!!!!!!!!!!!!!!!!!
 We have made a requirements.txt file in which we have stated all the libraries and packages. This file is used for a new member of the time to set up the right environment.
+
+'''
+$ conda create --name [your_environment_name] python=3.9’
+$ conda activate [your_environment_name] 
+'''
+
 The way the member can do this is by:
 1. $cd [path]
 2. $pip install -r requirements.txt
